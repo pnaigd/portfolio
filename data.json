@@ -1,0 +1,108 @@
+{
+  "navigation": [
+    { "label": "Home", "target": "home" },
+    { "label": "About", "target": "about" },
+    { "label": "Skills", "target": "skills" },
+    { "label": "Projects", "target": "projects" },
+    { "label": "Education", "target": "education" },
+    { "label": "Contact", "target": "contact" }
+  ],
+
+  "personal": {
+    "fullName": "Prian Andrei D. Gallardo",
+    "role": "1st Year BSIT Student",
+    "tagline": "index.html",
+    "introduction": "I'm a first year Information Technology student who likes figuring out how things are built, then rebuilding them a little cleaner. Right now that means learning HTML, CSS, and JavaScript one small project at a time.",
+    "email": "prian.gallardo@example.com",
+    "location": "Philippines"
+  },
+
+  "about": {
+    "biography": "I'm Prian Andrei D. Gallardo, a first year BSIT student who got into computers by taking apart the family desktop more times than anyone was comfortable with. Somewhere between reinstalling the OS and figuring out why the Wi-Fi kept dropping, I realized I liked the troubleshooting more than the panic.",
+    "background": "Before college I spent a lot of time in Canva and Google Sites making layouts for school projects, which is probably why I lean toward the design side of development. I didn't touch real code until my first semester, so most of what's on this site was learned in the last few months.",
+    "interests": [
+      "Building small web projects",
+      "UI/UX and Figma layouts",
+      "Mobile gaming",
+      "Editing short videos for friends' projects"
+    ],
+    "whyBSIT": "I chose BSIT because I wanted a course that let me build things people can actually use, not just theory on paper. Web development felt like the fastest way to see an idea turn into something clickable.",
+    "careerGoals": "Long term, I want to work as a front-end developer or UI/UX designer for a company that takes accessibility and clean design seriously. Short term, I just want to finish this course with a portfolio I'm not embarrassed to show people."
+  },
+
+  "skills": {
+    "technical": [
+      { "name": "HTML", "level": "Learning" },
+      { "name": "CSS", "level": "Learning" },
+      { "name": "JavaScript", "level": "Beginner" },
+      { "name": "Java", "level": "Beginner" },
+      { "name": "Figma", "level": "Comfortable" },
+      { "name": "GitHub", "level": "Beginner" }
+    ],
+    "soft": [
+      "Communication",
+      "Teamwork",
+      "Problem Solving",
+      "Adaptability",
+      "Time Management"
+    ]
+  },
+
+  "projects": [
+    {
+      "title": "Task Slayer",
+      "description": "A cooperative, terminal-based multiplayer game built in Java, where players team up to fight bosses by typing prompts correctly and quickly before the boss attacks.",
+      "technologies": ["Java", "Maven", "ANSI Terminal UI"],
+      "category": "Java Project",
+      "link": "#"
+    },
+    {
+      "title": "UN.BOUND Design System",
+      "description": "A streetwear e-commerce UI/UX case study with a full light and dark design system, covering 20 screens from browsing to checkout, designed in Figma.",
+      "technologies": ["Figma", "Design Systems", "Prototyping"],
+      "category": "UI/UX Case Study",
+      "link": "#"
+    },
+    {
+      "title": "BuildWeb Landing Page",
+      "description": "A responsive promotional landing page for a web design course, built from a written spec and matched pixel-by-pixel against reference screenshots.",
+      "technologies": ["HTML", "CSS", "Responsive Design"],
+      "category": "Web Development",
+      "link": "#"
+    },
+    {
+      "title": "This Portfolio",
+      "description": "A JSON-driven personal portfolio site, where the JavaScript layer reads all content from a data file so the page updates without touching the HTML.",
+      "technologies": ["HTML", "CSS", "JavaScript", "JSON"],
+      "category": "Web Development",
+      "link": "#"
+    }
+  ],
+
+  "education": [
+    {
+      "school": "State University",
+      "program": "Bachelor of Science in Information Technology",
+      "yearLevel": "1st Year",
+      "period": "2025 - Present",
+      "experience": "Currently taking foundational courses in web development, data structures, and UI/UX design. Learning to balance coursework theory with building real, working projects."
+    },
+    {
+      "school": "Senior High School",
+      "program": "STEM Strand",
+      "yearLevel": "Graduated",
+      "period": "2023 - 2025",
+      "experience": "Took an early interest in computer subjects and design electives, which led directly into choosing BSIT for college."
+    }
+  ],
+
+  "contact": {
+    "email": "prian.gallardo@example.com",
+    "github": "https://github.com/pnaigd",
+    "social": [
+      { "platform": "GitHub", "url": "https://github.com/pnaigd" },
+      { "platform": "LinkedIn", "url": "https://linkedin.com/in/pnaigd" },
+      { "platform": "Instagram", "url": "https://instagram.com/pnaigd" }
+    ]
+  }
+}
