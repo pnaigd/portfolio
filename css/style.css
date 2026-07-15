@@ -40,7 +40,6 @@
 
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: var(--header-height);
 }
 
 @media (prefers-reduced-motion: reduce) {
