@@ -11,10 +11,11 @@
   "personal": {
     "fullName": "Prian Andrei D. Gallardo",
     "role": "1st Year BSIT Student",
-    "tagline": "wow webdev",
+    "tagline": "index.html",
+    "photo": "assets/images/profile.png",
     "introduction": "I'm a first year Information Technology student who likes figuring out how things are built, then rebuilding them a little cleaner. Right now that means learning HTML, CSS, and JavaScript one small project at a time.",
     "email": "prianandrei.gallardo@lorma.edu",
-    "location": "Philippines"
+    "location": "San Fernando City, La Union, Philippines"
   },
 
   "about": {
@@ -54,6 +55,7 @@
       "description": "A cooperative, terminal-based multiplayer game built in Java, where players team up to fight bosses by typing prompts correctly and quickly before the boss attacks.",
       "technologies": ["Java", "Maven", "ANSI Terminal UI"],
       "category": "Java Project",
+      "image": "assets/images/project-1.svg",
       "link": "#"
     },
     {
@@ -61,6 +63,7 @@
       "description": "A streetwear e-commerce UI/UX case study with a full light and dark design system, covering 20 screens from browsing to checkout, designed in Figma.",
       "technologies": ["Figma", "Design Systems", "Prototyping"],
       "category": "UI/UX Case Study",
+      "image": "assets/images/project-2.svg",
       "link": "#"
     },
     {
@@ -68,13 +71,15 @@
       "description": "A responsive promotional landing page for a web design course, built from a written spec and matched pixel-by-pixel against reference screenshots.",
       "technologies": ["HTML", "CSS", "Responsive Design"],
       "category": "Web Development",
+      "image": "assets/images/project-3.svg",
       "link": "#"
     },
     {
-      "title": "This Portfolio",
+      "title": "Portfolio",
       "description": "A JSON-driven personal portfolio site, where the JavaScript layer reads all content from a data file so the page updates without touching the HTML.",
       "technologies": ["HTML", "CSS", "JavaScript", "JSON"],
       "category": "Web Development",
+      "image": "assets/images/project-4.svg",
       "link": "#"
     }
   ],
@@ -92,7 +97,7 @@
       "program": "ABM Strand",
       "yearLevel": "Graduated",
       "period": "2023 - 2025",
-      "experience": "It was mainly because i thought there wasnt an ICT strand in SHS lol, which led directly into choosing BSIT for college."
+      "experience": "Took an early interest in ABM subjects but ultimately i leaned more into things that i found fun, which led directly into choosing BSIT for college."
     }
   ],
 
@@ -101,7 +106,8 @@
     "github": "https://github.com/pnaigd",
     "social": [
       { "platform": "GitHub", "url": "https://github.com/pnaigd" },
-      { "platform": "LinkedIn", "url": "https://linkedin.com/in/pnaigd" }
+      { "platform": "LinkedIn", "url": "https://linkedin.com/in/pnaigd" },
+      { "platform": "Instagram", "url": "https://instagram.com/drei.gldo" }
     ]
   }
 }

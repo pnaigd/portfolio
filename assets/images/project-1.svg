@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 400" width="600" height="400" role="img" aria-label="Task Slayer - Java terminal multiplayer game">
+  <defs>
+    <linearGradient id="tsBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f172a"/>
+      <stop offset="100%" stop-color="#1e293b"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="600" height="400" fill="url(#tsBg)"/>
+
+  <!-- Terminal window -->
+  <rect x="40" y="50" width="520" height="300" rx="10" fill="#16213c" stroke="#38BDF8" stroke-opacity="0.3" stroke-width="1"/>
+  <rect x="40" y="50" width="520" height="34" rx="10" fill="#1e293b"/>
+  <circle cx="62" cy="67" r="5" fill="#ef4444"/>
+  <circle cx="78" cy="67" r="5" fill="#f59e0b"/>
+  <circle cx="94" cy="67" r="5" fill="#22c55e"/>
+  <text x="300" y="72" text-anchor="middle" font-family="monospace" font-size="11" fill="#94A3B8">task-slayer — bash</text>
+
+  <!-- Terminal content -->
+  <g font-family="'Courier New', monospace" font-size="13">
+    <text x="60" y="115" fill="#94A3B8">$ java -jar task-slayer.jar</text>
+    <text x="60" y="145" fill="#38BDF8">&gt; Boss HP: ██████████ 100%</text>
+    <text x="60" y="170" fill="#22c55e">&gt; Player 1 typed: "fireball"</text>
+    <text x="60" y="195" fill="#22c55e">&gt; Player 2 typed: "shield"</text>
+    <text x="60" y="220" fill="#f59e0b">&gt; Critical hit! -25 HP</text>
+    <text x="60" y="245" fill="#38BDF8">&gt; Boss HP: ████████░░ 75%</text>
+    <text x="60" y="275" fill="#ef4444">&gt; Boss attacks! Type "dodge"!</text>
+    <text x="60" y="310" fill="#94A3B8">&gt; _<tspan fill="#38BDF8">
+</tspan></text>
+  </g>
+
+  <!-- Badge -->
+  <g transform="translate(40, 360)">
+    <rect x="0" y="0" rx="4" ry="4" width="100" height="22" fill="#2563EB"/>
+    <text x="50" y="15" text-anchor="middle" font-family="Poppins, sans-serif" font-size="11" font-weight="600" fill="#F8FAFC">Java Project</text>
+  </g>
+</svg>

@@ -1,4 +1,5 @@
-/* 
+/*
+   PORTFOLIO SCRIPT
    Fetches data.json and dynamically renders every section of the page.
    Organized into: data loading, render functions, navigation behavior,
    scroll effects, and form handling.
@@ -8,6 +9,11 @@ document.addEventListener('DOMContentLoaded', () => {
   init();
 });
 
+/**
+ * Entry point. Fetches the JSON data source and kicks off rendering.
+ * Any fetch/parsing failure is caught and shown to the user instead of
+ * silently leaving the page blank.
+ */
 async function init() {
   try {
     const response = await fetch('data.json');
@@ -25,6 +31,7 @@ async function init() {
     renderProjects(data.projects);
     renderEducation(data.education);
     renderContact(data.contact);
+    renderFooterYear();
 
     setupMobileMenu();
     setupActiveNavHighlighting();
@@ -37,7 +44,9 @@ async function init() {
   }
 }
 
-/* Displays a simple, user-facing fallback message if data.json fails to load.*/
+/**
+ * Displays a simple, user-facing fallback message if data.json fails to load.
+ */
 function showLoadError() {
   const main = document.querySelector('main');
   if (!main) return;
@@ -49,7 +58,9 @@ function showLoadError() {
   main.prepend(notice);
 }
 
-/*RENDER: NAVIGATION*/
+/*
+   RENDER: NAVIGATION
+    */
 function renderNavigation(navItems = []) {
   const navList = document.getElementById('nav-list');
   if (!navList) return;
@@ -61,13 +72,22 @@ function renderNavigation(navItems = []) {
   `).join('');
 }
 
-/*RENDER: HERO*/
+/*
+   RENDER: HERO
+    */
 function renderHero(personal = {}) {
   const heroContent = document.getElementById('hero-content');
   const codeWindow = document.getElementById('code-window-body');
   if (!heroContent) return;
 
+  // Build the profile photo block if a photo path is provided in the JSON.
+  // Falls back to a plain initials badge if the photo is missing or fails to load.
+  const photoBlock = personal.photo
+    ? `<img src="${personal.photo}" alt="Profile photo of ${personal.fullName || 'the author'}" class="hero-avatar" />`
+    : `<div class="hero-avatar hero-avatar-fallback">${getInitials(personal.fullName)}</div>`;
+
   heroContent.innerHTML = `
+    ${photoBlock}
     <span class="hero-kicker">Available for opportunities</span>
     <h1 class="hero-name">${personal.fullName || ''}</h1>
     <p class="hero-role">${personal.role || ''}</p>
@@ -78,7 +98,8 @@ function renderHero(personal = {}) {
     </div>
   `;
 
-  // code window from buildweb lel
+  // Signature visual: a mock JSON snippet echoing the same data,
+  // reinforcing the "JSON-driven" concept of the site itself.
   if (codeWindow) {
     codeWindow.innerHTML =
 `<span class="punct">{</span>
@@ -89,10 +110,21 @@ function renderHero(personal = {}) {
   }
 }
 
-/* 
+/**
+ * Small helper: returns the uppercase initials from a full name,
+ * e.g. "Prian Andrei Gallardo" -> "PG".
+ */
+function getInitials(fullName = '') {
+  return fullName
+    .split(' ')
+    .filter(part => part && !part.includes('.'))
+    .slice(0, 2)
+    .map(part => part.charAt(0).toUpperCase())
+    .join('');
+}
+
+/*
    RENDER: ABOUT
-   Laid out as label/content rows (a "dossier" reading top to bottom)
-   rather than a grid of boxes, so it doesn't repeat the Skills layout.
     */
 function renderAbout(about = {}) {
   const aboutGrid = document.getElementById('about-grid');
@@ -102,59 +134,44 @@ function renderAbout(about = {}) {
     .map(interest => `<li>${interest}</li>`)
     .join('');
 
-  const rows = [
-    { label: 'Background', body: `<p>${about.biography || ''}</p><p>${about.background || ''}</p>` },
-    { label: 'Interests', body: `<ul class="interest-list">${interests}</ul>` },
-    { label: 'Why BSIT', body: `<p>${about.whyBSIT || ''}</p>` },
-    { label: 'Career goals', body: `<p>${about.careerGoals || ''}</p>` }
-  ];
-
-  aboutGrid.innerHTML = rows.map(row => `
-    <div class="about-row fade-in">
-      <h3 class="about-label">${row.label}</h3>
-      <div class="about-content">${row.body}</div>
+  aboutGrid.innerHTML = `
+    <div class="about-card fade-in">
+      <h3>Background</h3>
+      <p>${about.biography || ''}</p>
+      <p>${about.background || ''}</p>
     </div>
-  `).join('');
+    <div class="about-card fade-in">
+      <h3>Interests</h3>
+      <ul class="interest-list">${interests}</ul>
+    </div>
+    <div class="about-card fade-in">
+      <h3>Why BSIT</h3>
+      <p>${about.whyBSIT || ''}</p>
+    </div>
+    <div class="about-card fade-in">
+      <h3>Career Goals</h3>
+      <p>${about.careerGoals || ''}</p>
+    </div>
+  `;
 }
 
-/* 
+/*
    RENDER: SKILLS
-   Technical skills read as a proficiency meter (name, level, and a filled
-   bar) so this section has its own data-driven feel, distinct from the
-   label/content rows in About and the index list in Projects.
     */
-
-// Known levels ranked low-to-high for the meter fill; anything unrecognized
-// falls back to a mid-range fill rather than breaking the layout.
-const SKILL_LEVEL_RANK = {
-  learning: 1,
-  beginner: 2,
-  comfortable: 3
-};
-const SKILL_LEVEL_MAX = 3;
-
 function renderSkills(skills = {}) {
   const technicalContainer = document.getElementById('technical-skills');
   const softContainer = document.getElementById('soft-skills');
 
   if (technicalContainer) {
-    technicalContainer.innerHTML = (skills.technical || []).map(skill => {
-      const levelKey = (skill.level || '').toLowerCase();
-      const rank = SKILL_LEVEL_RANK[levelKey] || Math.ceil(SKILL_LEVEL_MAX / 2);
-      const percent = Math.round((rank / SKILL_LEVEL_MAX) * 100);
-
-      return `
-        <div class="skill-row fade-in" data-level="${levelKey}">
-          <div class="skill-row-top">
-            <span class="skill-name">${skill.name}</span>
-            <span class="skill-level">${skill.level || ''}</span>
-          </div>
-          <div class="meter" role="img" aria-label="${skill.name} proficiency: ${skill.level || 'unspecified'}">
-            <span class="meter-fill" style="width:${percent}%"></span>
-          </div>
-        </div>
-      `;
-    }).join('');
+    technicalContainer.innerHTML = (skills.technical || []).map(skill => `
+      <div class="skill-card fade-in">
+        <span class="skill-name">${skill.name}</span>
+        <span class="skill-level">${skill.level || ''}</span>
+        <span class="skill-meter" aria-hidden="true">
+          <span class="skill-meter-fill" data-level="${(skill.level || '').toLowerCase()}"></span>
+        </span>
+      </div>
+    `).join('');
   }
 
   if (softContainer) {
@@ -164,36 +181,41 @@ function renderSkills(skills = {}) {
   }
 }
 
-/*RENDER: PROJECTS
-   Each project gets a large, faint running number instead of card borders
-   or a meter — an editorial "index" feel that reads differently from the
-   Skills and About layouts. */
+/*
+   RENDER: PROJECTS
+    */
 function renderProjects(projects = []) {
   const projectsGrid = document.getElementById('projects-grid');
   if (!projectsGrid) return;
 
-  projectsGrid.innerHTML = projects.map((project, i) => {
+  projectsGrid.innerHTML = projects.map(project => {
     const techTags = (project.technologies || [])
       .map(tech => `<span>${tech}</span>`)
       .join('');
-    const index = String(i + 1).padStart(2, '0');
+
+    // Project image with graceful fallback if the image path is missing
+    const imageBlock = project.image
+      ? `<img src="${project.image}" alt="Thumbnail for ${project.title}" class="project-image" loading="lazy" />`
+      : '';
 
     return `
-      <article class="project-row fade-in">
-        <span class="project-index" aria-hidden="true">${index}</span>
+      <article class="project-card fade-in">
+        ${imageBlock}
         <div class="project-body">
           <span class="project-category">${project.category || ''}</span>
           <h3>${project.title || ''}</h3>
           <p>${project.description || ''}</p>
           <div class="project-tech">${techTags}</div>
-          <a href="${project.link || '#'}" class="project-link">View project &rarr;</a>
+          <a href="${project.link || '#'}" class="project-link">View Project</a>
         </div>
       </article>
     `;
   }).join('');
 }
 
-/*RENDER: EDUCATION*/
+/*
+   RENDER: EDUCATION
+    */
 function renderEducation(education = []) {
   const timeline = document.getElementById('education-timeline');
   if (!timeline) return;
@@ -208,7 +230,9 @@ function renderEducation(education = []) {
   `).join('');
 }
 
-/*RENDER: CONTACT*/
+/*
+   RENDER: CONTACT
+    */
 function renderContact(contact = {}) {
   const contactDetails = document.getElementById('contact-details');
   if (!contactDetails) return;
@@ -219,11 +243,23 @@ function renderContact(contact = {}) {
 
   contactDetails.innerHTML = `
     <a href="mailto:${contact.email || ''}" class="contact-link">${contact.email || ''}</a>
-    <div class="contact-socials">${socialLinks}</div>
+    ${socialLinks}
   `;
 }
 
-/*BEHAVIOR: MOBILE MENU*/
+/*
+   RENDER: FOOTER YEAR (auto-updates to the current year)
+    */
+function renderFooterYear() {
+  const yearEl = document.getElementById('footer-year');
+  if (yearEl) {
+    yearEl.textContent = new Date().getFullYear();
+  }
+}
+
+/*
+   BEHAVIOR: MOBILE MENU
+    */
 function setupMobileMenu() {
   const toggle = document.getElementById('nav-toggle');
   const nav = document.getElementById('main-nav');
@@ -243,7 +279,9 @@ function setupMobileMenu() {
   });
 }
 
-/*BEHAVIOR: ACTIVE SECTION HIGHLIGHTING*/
+/*
+   BEHAVIOR: ACTIVE SECTION HIGHLIGHTING
+    */
 function setupActiveNavHighlighting() {
   const sections = document.querySelectorAll('main .section[id]');
   const navLinks = document.querySelectorAll('.nav-list a');
@@ -268,7 +306,9 @@ function setupActiveNavHighlighting() {
   sections.forEach(section => observer.observe(section));
 }
 
-/*BEHAVIOR: FADE-IN ON FIRST APPEARANCE*/
+/*
+   BEHAVIOR: FADE-IN ON FIRST APPEARANCE
+    */
 function setupFadeInOnScroll() {
   const items = document.querySelectorAll('.fade-in');
   if (!items.length) return;
@@ -285,7 +325,9 @@ function setupFadeInOnScroll() {
   items.forEach(item => observer.observe(item));
 }
 
-/*BEHAVIOR: CONTACT FORM (front-end only, no backend)*/
+/*
+   BEHAVIOR: CONTACT FORM (front-end only, no backend)
+    */
 function setupContactForm() {
   const form = document.getElementById('contact-form');
   const status = document.getElementById('form-status');
