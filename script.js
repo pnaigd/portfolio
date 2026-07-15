@@ -1,19 +1,13 @@
-/* ==========================================================================
-   PORTFOLIO SCRIPT
+/* 
    Fetches data.json and dynamically renders every section of the page.
    Organized into: data loading, render functions, navigation behavior,
    scroll effects, and form handling.
-   ========================================================================== */
+    */
 
 document.addEventListener('DOMContentLoaded', () => {
   init();
 });
 
-/**
- * Entry point. Fetches the JSON data source and kicks off rendering.
- * Any fetch/parsing failure is caught and shown to the user instead of
- * silently leaving the page blank.
- */
 async function init() {
   try {
     const response = await fetch('data.json');
@@ -43,9 +37,7 @@ async function init() {
   }
 }
 
-/**
- * Displays a simple, user-facing fallback message if data.json fails to load.
- */
+/* Displays a simple, user-facing fallback message if data.json fails to load.*/
 function showLoadError() {
   const main = document.querySelector('main');
   if (!main) return;
@@ -57,9 +49,7 @@ function showLoadError() {
   main.prepend(notice);
 }
 
-/* ==========================================================================
-   RENDER: NAVIGATION
-   ========================================================================== */
+/*RENDER: NAVIGATION*/
 function renderNavigation(navItems = []) {
   const navList = document.getElementById('nav-list');
   if (!navList) return;
@@ -71,9 +61,7 @@ function renderNavigation(navItems = []) {
   `).join('');
 }
 
-/* ==========================================================================
-   RENDER: HERO
-   ========================================================================== */
+/*RENDER: HERO*/
 function renderHero(personal = {}) {
   const heroContent = document.getElementById('hero-content');
   const codeWindow = document.getElementById('code-window-body');
@@ -90,8 +78,7 @@ function renderHero(personal = {}) {
     </div>
   `;
 
-  // Signature visual: a mock JSON snippet echoing the same data,
-  // reinforcing the "JSON-driven" concept of the site itself.
+  // code window from buildweb lel
   if (codeWindow) {
     codeWindow.innerHTML =
 `<span class="punct">{</span>
@@ -102,9 +89,11 @@ function renderHero(personal = {}) {
   }
 }
 
-/* ==========================================================================
+/* 
    RENDER: ABOUT
-   ========================================================================== */
+   Laid out as label/content rows (a "dossier" reading top to bottom)
+   rather than a grid of boxes, so it doesn't repeat the Skills layout.
+    */
 function renderAbout(about = {}) {
   const aboutGrid = document.getElementById('about-grid');
   if (!aboutGrid) return;
@@ -113,41 +102,59 @@ function renderAbout(about = {}) {
     .map(interest => `<li>${interest}</li>`)
     .join('');
 
-  aboutGrid.innerHTML = `
-    <div class="about-card fade-in">
-      <h3>Background</h3>
-      <p>${about.biography || ''}</p>
-      <p>${about.background || ''}</p>
+  const rows = [
+    { label: 'Background', body: `<p>${about.biography || ''}</p><p>${about.background || ''}</p>` },
+    { label: 'Interests', body: `<ul class="interest-list">${interests}</ul>` },
+    { label: 'Why BSIT', body: `<p>${about.whyBSIT || ''}</p>` },
+    { label: 'Career goals', body: `<p>${about.careerGoals || ''}</p>` }
+  ];
+
+  aboutGrid.innerHTML = rows.map(row => `
+    <div class="about-row fade-in">
+      <h3 class="about-label">${row.label}</h3>
+      <div class="about-content">${row.body}</div>
     </div>
-    <div class="about-card fade-in">
-      <h3>Interests</h3>
-      <ul class="interest-list">${interests}</ul>
-    </div>
-    <div class="about-card fade-in">
-      <h3>Why BSIT</h3>
-      <p>${about.whyBSIT || ''}</p>
-    </div>
-    <div class="about-card fade-in">
-      <h3>Career Goals</h3>
-      <p>${about.careerGoals || ''}</p>
-    </div>
-  `;
+  `).join('');
 }
 
-/* ==========================================================================
+/* 
    RENDER: SKILLS
-   ========================================================================== */
+   Technical skills read as a proficiency meter (name, level, and a filled
+   bar) so this section has its own data-driven feel, distinct from the
+   label/content rows in About and the index list in Projects.
+    */
+
+// Known levels ranked low-to-high for the meter fill; anything unrecognized
+// falls back to a mid-range fill rather than breaking the layout.
+const SKILL_LEVEL_RANK = {
+  learning: 1,
+  beginner: 2,
+  comfortable: 3
+};
+const SKILL_LEVEL_MAX = 3;
+
 function renderSkills(skills = {}) {
   const technicalContainer = document.getElementById('technical-skills');
   const softContainer = document.getElementById('soft-skills');
 
   if (technicalContainer) {
-    technicalContainer.innerHTML = (skills.technical || []).map(skill => `
-      <div class="skill-card fade-in">
-        <span class="skill-name">${skill.name}</span>
-        <span class="skill-level">${skill.level || ''}</span>
-      </div>
-    `).join('');
+    technicalContainer.innerHTML = (skills.technical || []).map(skill => {
+      const levelKey = (skill.level || '').toLowerCase();
+      const rank = SKILL_LEVEL_RANK[levelKey] || Math.ceil(SKILL_LEVEL_MAX / 2);
+      const percent = Math.round((rank / SKILL_LEVEL_MAX) * 100);
+
+      return `
+        <div class="skill-row fade-in" data-level="${levelKey}">
+          <div class="skill-row-top">
+            <span class="skill-name">${skill.name}</span>
+            <span class="skill-level">${skill.level || ''}</span>
+          </div>
+          <div class="meter" role="img" aria-label="${skill.name} proficiency: ${skill.level || 'unspecified'}">
+            <span class="meter-fill" style="width:${percent}%"></span>
+          </div>
+        </div>
+      `;
+    }).join('');
   }
 
   if (softContainer) {
@@ -157,33 +164,36 @@ function renderSkills(skills = {}) {
   }
 }
 
-/* ==========================================================================
-   RENDER: PROJECTS
-   ========================================================================== */
+/*RENDER: PROJECTS
+   Each project gets a large, faint running number instead of card borders
+   or a meter — an editorial "index" feel that reads differently from the
+   Skills and About layouts. */
 function renderProjects(projects = []) {
   const projectsGrid = document.getElementById('projects-grid');
   if (!projectsGrid) return;
 
-  projectsGrid.innerHTML = projects.map(project => {
+  projectsGrid.innerHTML = projects.map((project, i) => {
     const techTags = (project.technologies || [])
       .map(tech => `<span>${tech}</span>`)
       .join('');
+    const index = String(i + 1).padStart(2, '0');
 
     return `
-      <article class="project-card fade-in">
-        <span class="project-category">${project.category || ''}</span>
-        <h3>${project.title || ''}</h3>
-        <p>${project.description || ''}</p>
-        <div class="project-tech">${techTags}</div>
-        <a href="${project.link || '#'}" class="project-link">View Project</a>
+      <article class="project-row fade-in">
+        <span class="project-index" aria-hidden="true">${index}</span>
+        <div class="project-body">
+          <span class="project-category">${project.category || ''}</span>
+          <h3>${project.title || ''}</h3>
+          <p>${project.description || ''}</p>
+          <div class="project-tech">${techTags}</div>
+          <a href="${project.link || '#'}" class="project-link">View project &rarr;</a>
+        </div>
       </article>
     `;
   }).join('');
 }
 
-/* ==========================================================================
-   RENDER: EDUCATION
-   ========================================================================== */
+/*RENDER: EDUCATION*/
 function renderEducation(education = []) {
   const timeline = document.getElementById('education-timeline');
   if (!timeline) return;
@@ -198,9 +208,7 @@ function renderEducation(education = []) {
   `).join('');
 }
 
-/* ==========================================================================
-   RENDER: CONTACT
-   ========================================================================== */
+/*RENDER: CONTACT*/
 function renderContact(contact = {}) {
   const contactDetails = document.getElementById('contact-details');
   if (!contactDetails) return;
@@ -211,13 +219,11 @@ function renderContact(contact = {}) {
 
   contactDetails.innerHTML = `
     <a href="mailto:${contact.email || ''}" class="contact-link">${contact.email || ''}</a>
-    ${socialLinks}
+    <div class="contact-socials">${socialLinks}</div>
   `;
 }
 
-/* ==========================================================================
-   BEHAVIOR: MOBILE MENU
-   ========================================================================== */
+/*BEHAVIOR: MOBILE MENU*/
 function setupMobileMenu() {
   const toggle = document.getElementById('nav-toggle');
   const nav = document.getElementById('main-nav');
@@ -237,9 +243,7 @@ function setupMobileMenu() {
   });
 }
 
-/* ==========================================================================
-   BEHAVIOR: ACTIVE SECTION HIGHLIGHTING
-   ========================================================================== */
+/*BEHAVIOR: ACTIVE SECTION HIGHLIGHTING*/
 function setupActiveNavHighlighting() {
   const sections = document.querySelectorAll('main .section[id]');
   const navLinks = document.querySelectorAll('.nav-list a');
@@ -264,9 +268,7 @@ function setupActiveNavHighlighting() {
   sections.forEach(section => observer.observe(section));
 }
 
-/* ==========================================================================
-   BEHAVIOR: FADE-IN ON FIRST APPEARANCE
-   ========================================================================== */
+/*BEHAVIOR: FADE-IN ON FIRST APPEARANCE*/
 function setupFadeInOnScroll() {
   const items = document.querySelectorAll('.fade-in');
   if (!items.length) return;
@@ -283,9 +285,7 @@ function setupFadeInOnScroll() {
   items.forEach(item => observer.observe(item));
 }
 
-/* ==========================================================================
-   BEHAVIOR: CONTACT FORM (front-end only, no backend)
-   ========================================================================== */
+/*BEHAVIOR: CONTACT FORM (front-end only, no backend)*/
 function setupContactForm() {
   const form = document.getElementById('contact-form');
   const status = document.getElementById('form-status');

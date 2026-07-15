@@ -11,9 +11,9 @@
   "personal": {
     "fullName": "Prian Andrei D. Gallardo",
     "role": "1st Year BSIT Student",
-    "tagline": "index.html",
+    "tagline": "wow webdev",
     "introduction": "I'm a first year Information Technology student who likes figuring out how things are built, then rebuilding them a little cleaner. Right now that means learning HTML, CSS, and JavaScript one small project at a time.",
-    "email": "prian.gallardo@example.com",
+    "email": "prianandrei.gallardo@lorma.edu",
     "location": "Philippines"
   },
 
@@ -81,7 +81,7 @@
 
   "education": [
     {
-      "school": "State University",
+      "school": "Lorma Colleges",
       "program": "Bachelor of Science in Information Technology",
       "yearLevel": "1st Year",
       "period": "2025 - Present",
@@ -89,20 +89,19 @@
     },
     {
       "school": "Senior High School",
-      "program": "STEM Strand",
+      "program": "ABM Strand",
       "yearLevel": "Graduated",
       "period": "2023 - 2025",
-      "experience": "Took an early interest in computer subjects and design electives, which led directly into choosing BSIT for college."
+      "experience": "It was mainly because i thought there wasnt an ICT strand in SHS lol, which led directly into choosing BSIT for college."
     }
   ],
 
   "contact": {
-    "email": "prian.gallardo@example.com",
+    "email": "prianandrei.gallardo@lorma.edu",
     "github": "https://github.com/pnaigd",
     "social": [
       { "platform": "GitHub", "url": "https://github.com/pnaigd" },
-      { "platform": "LinkedIn", "url": "https://linkedin.com/in/pnaigd" },
-      { "platform": "Instagram", "url": "https://instagram.com/pnaigd" }
+      { "platform": "LinkedIn", "url": "https://linkedin.com/in/pnaigd" }
     ]
   }
 }

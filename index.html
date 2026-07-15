@@ -1,31 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Prian Andrei D. Gallardo | Portfolio</title>
   <meta name="description" content="Personal portfolio of Prian Andrei D. Gallardo, 1st Year BSIT Student." />
 
-  <!-- Fonts -->
+  <!-- Fonts: Space Grotesk (headings), Inter (body), JetBrains Mono (labels/code) -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"
+    rel="stylesheet" />
 
   <link rel="stylesheet" href="style.css" />
 </head>
+
 <body>
 
-  <!-- ============ HEADER / NAVIGATION ============ -->
+  <!-- HEADER / NAVIGATION -->
   <header class="site-header">
     <div class="nav-wrap">
-      <a href="#home" class="logo">PG<span class="logo-dot">.</span></a>
+      <a href="#home" class="logo">pnaigd<span class="logo-dot">.</span>dev</a>
 
       <!-- Nav links are rendered by script.js from data.json -->
       <nav class="main-nav" id="main-nav" aria-label="Primary">
         <ul class="nav-list" id="nav-list"></ul>
       </nav>
 
-      <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="main-nav">
+      <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu" aria-expanded="false"
+        aria-controls="main-nav">
         <span></span>
         <span></span>
         <span></span>
@@ -35,7 +40,7 @@
 
   <main>
 
-    <!-- ============ HOME / HERO ============ -->
+    <!-- HOME / HERO -->
     <section id="home" class="section hero">
       <div class="container hero-grid">
         <div class="hero-content" id="hero-content">
@@ -52,90 +57,93 @@
       </div>
     </section>
 
-    <!-- ============ ABOUT ============ -->
+    <!-- ABOUT -->
     <section id="about" class="section">
       <div class="container">
-        <h2 class="section-title"><span class="eyebrow">01</span> About Me</h2>
+        <h2 class="section-title"><span class="eyebrow">01 / 05</span> About Me</h2>
         <div class="about-grid" id="about-grid">
           <!-- Populated by script.js -->
         </div>
       </div>
     </section>
 
-    <!-- ============ SKILLS ============ -->
+    <!-- SKILLS -->
     <section id="skills" class="section section-alt">
       <div class="container">
-        <h2 class="section-title"><span class="eyebrow">02</span> Skills</h2>
+        <h2 class="section-title"><span class="eyebrow">02 / 05</span> Skills</h2>
 
-        <h3 class="subsection-title">Technical Skills</h3>
+        <h3 class="subsection-title">Technical skills</h3>
         <div class="skills-grid" id="technical-skills">
           <!-- Populated by script.js -->
         </div>
 
-        <h3 class="subsection-title">Soft Skills</h3>
+        <h3 class="subsection-title">Soft skills</h3>
         <div class="tag-group" id="soft-skills">
           <!-- Populated by script.js -->
         </div>
       </div>
     </section>
 
-    <!-- ============ PROJECTS ============ -->
+    <!-- PROJECTS -->
     <section id="projects" class="section">
       <div class="container">
-        <h2 class="section-title"><span class="eyebrow">03</span> Projects</h2>
+        <h2 class="section-title"><span class="eyebrow">03 / 05</span> Projects</h2>
         <div class="projects-grid" id="projects-grid">
           <!-- Populated by script.js -->
         </div>
       </div>
     </section>
 
-    <!-- ============ EDUCATION ============ -->
+    <!-- EDUCATION -->
     <section id="education" class="section section-alt">
       <div class="container">
-        <h2 class="section-title"><span class="eyebrow">04</span> Education</h2>
+        <h2 class="section-title"><span class="eyebrow">04 / 05</span> Education</h2>
         <div class="timeline" id="education-timeline">
           <!-- Populated by script.js -->
         </div>
       </div>
     </section>
 
-    <!-- ============ CONTACT ============ -->
+    <!-- CONTACT -->
     <section id="contact" class="section">
-      <div class="container contact-grid">
-        <div class="contact-info">
-          <h2 class="section-title"><span class="eyebrow">05</span> Contact</h2>
-          <p class="contact-lead">Have a question, a project idea, or just want to say hi? Reach out through any of the channels below.</p>
-          <div id="contact-details">
-            <!-- Populated by script.js -->
-          </div>
-        </div>
+      <div class="container">
+        <h2 class="section-title"><span class="eyebrow">05 / 05</span> Contact</h2>
+        <p class="contact-lead">Reach out — always happy to talk about a role, a project, or just web dev in general.</p>
+
+        <!-- Populated by script.js: email as the primary link, socials below it -->
+        <div class="contact-primary" id="contact-details"></div>
 
         <form class="contact-form" id="contact-form" novalidate>
-          <div class="form-field">
-            <label for="name">Name</label>
-            <input type="text" id="name" name="name" placeholder="Your name" required />
-          </div>
-          <div class="form-field">
-            <label for="email">Email</label>
-            <input type="email" id="email" name="email" placeholder="you@example.com" required />
+          <div class="form-row">
+            <div class="form-field">
+              <label for="name">Name</label>
+              <input type="text" id="name" name="name" placeholder="Your name" required />
+            </div>
+            <div class="form-field">
+              <label for="email">Email</label>
+              <input type="email" id="email" name="email" placeholder="you@example.com" required />
+            </div>
           </div>
           <div class="form-field">
             <label for="message">Message</label>
             <textarea id="message" name="message" rows="5" placeholder="What's on your mind?" required></textarea>
           </div>
-          <button type="submit" class="btn btn-primary">Send Message</button>
-          <p class="form-status" id="form-status" role="status" aria-live="polite"></p>
+          <div class="contact-form-footer">
+            <button type="submit" class="btn btn-primary">Send message</button>
+            <p class="form-status" id="form-status" role="status" aria-live="polite"></p>
+          </div>
         </form>
       </div>
     </section>
 
   </main>
 
-  <!-- ============ FOOTER (only hardcoded content) ============ -->
+  <!-- FOOTER (hardcoded) -->
   <footer class="site-footer">
     <p>&copy; Prian Andrei D. Gallardo</p>
   </footer>
 
   <script src="script.js"></script>
 </body>
+
 </html>
